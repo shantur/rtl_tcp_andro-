@@ -129,8 +129,8 @@ public class UsbPermissionHelper {
 				case XmlPullParser.START_TAG:
 					if (xml.getName().equals("usb-device")) {
 						final AttributeSet as = Xml.asAttributeSet(xml);
-						final Integer vendorId = Integer.valueOf( as.getAttributeValue(null, "vendor-id"), 16);
-						final Integer productId = Integer.valueOf( as.getAttributeValue(null, "product-id"), 16);
+						final Integer vendorId = Integer.valueOf( as.getAttributeValue(null, "vendor-id"), 10);
+						final Integer productId = Integer.valueOf( as.getAttributeValue(null, "product-id"), 10);
 						ans.add("v"+vendorId+"p"+productId);
 					}
 					break;

@@ -29,10 +29,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -47,6 +49,7 @@ public class StreamActivity extends FragmentActivity implements Log.Callback {
 	
 	public static final String PREFS_NAME = "rtl_tcp_androPREFS";
 	public static final String DISABLE_JAVA_FIX_PREF = "disable.java.usb.fix";
+	public static final String EXTRA_PARAMS_KEY = "extra_params";
 	
 	private TextView terminal;
 	private ScrollView scroll;
@@ -54,6 +57,7 @@ public class StreamActivity extends FragmentActivity implements Log.Callback {
 	private ToggleButton onoff;
 	private CheckBox forceroot;
 	private SharedPreferences prefs;
+	private EditText extraATextEdit;
 
 	private static final int START_REQ_CODE = 1;
 	
@@ -77,6 +81,9 @@ public class StreamActivity extends FragmentActivity implements Log.Callback {
 				findViewById(R.id.gui).setVisibility(View.VISIBLE);
 			}
 		});
+		
+		extraATextEdit = (EditText) findViewById(R.id.extra_args);
+		extraATextEdit.setText(getSavedParams());
 		
 		
 		(forceroot = (CheckBox) findViewById(R.id.forceRoot)).setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
@@ -143,6 +150,22 @@ public class StreamActivity extends FragmentActivity implements Log.Callback {
 				showDialog(dialogs.DIAG_LICENSE);
 			}
 		});
+	}
+	
+	public void onSaveExtraParamsClick(View view) {
+		String text = extraATextEdit.getText().toString();
+		Editor editor = prefs.edit();
+		if (TextUtils.isEmpty(text)) {
+			editor.remove(EXTRA_PARAMS_KEY);
+		} else {
+			editor.putString(EXTRA_PARAMS_KEY, text);
+		}
+		
+		editor.commit();
+	}
+	
+	public String getSavedParams() {
+		return prefs.getString(EXTRA_PARAMS_KEY, "");
 	}
 	
 	public void showDialog(final DialogManager.dialogs id, final String ... args) {

@@ -74,7 +74,7 @@ public class BinaryRunnerService extends Service {
 		return START_STICKY;
 	}
 
-	public void start(final String args, final int fd, final String uspfs_path) {
+	public void start( String args, final int fd, final String uspfs_path) {
 		try {
 			
 			if (args == null) {
@@ -114,6 +114,7 @@ public class BinaryRunnerService extends Service {
 				Log.appendLine("Acquired wake lock. Will keep the screen on.");
 			} catch (Throwable e) {e.printStackTrace();}
 
+			android.util.Log.d("RTLUSB", "Arguments " + args);
 			Log.appendLine("#rtl_tcp_andro "+args);
 
 			RtlTcp.unregisterWordCallback(callback1);

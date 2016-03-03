@@ -50,6 +50,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import static marto.rtl_tcp_andro.StreamActivity.DISABLE_JAVA_FIX_PREF;
 import static marto.rtl_tcp_andro.StreamActivity.PREFS_NAME;
+import static marto.rtl_tcp_andro.StreamActivity.EXTRA_PARAMS_KEY;;
 
 public class DeviceOpenActivity extends FragmentActivity implements BinaryRunnerService.ExceptionListener {
 	
@@ -230,9 +231,12 @@ public class DeviceOpenActivity extends FragmentActivity implements BinaryRunner
 	/** 
 	 * Starts the tcp binary
 	 */
-	public void startBinary(final String arguments, final int fd, final String uspfs_path) {
+	public void startBinary(String arguments, final int fd, final String uspfs_path) {
 		try {
+			arguments += " " + getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(EXTRA_PARAMS_KEY, "");
 			//start the service
+			android.util.Log.d("RTLUSB", "Arguments " + arguments);
+			
 			this.args = arguments;
 			this.fd = fd;
 			this.uspfs_path = uspfs_path;

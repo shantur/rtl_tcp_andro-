@@ -26,11 +26,11 @@ LOCAL_SRC_FILES:= \
  rtl-sdr/src/tuner_r82xx.c
 
 LOCAL_C_INCLUDES += \
-jni/libusb-andro \
-jni/libusb-andro/libusb \
-jni/libusb-andro/libusb/os \
-jni/rtl-sdr/include \
-jni/rtl-sdr/src
+libusb-andro \
+libusb-andro/libusb \
+libusb-andro/libusb/os \
+rtl-sdr/include \
+rtl-sdr/src
 
 LOCAL_CFLAGS += -Wall -DLIBUSB_DESCRIBE="" -O3 -fno-builtin-printf -fno-builtin-fprintf
 LOCAL_MODULE:= RtlTcp
